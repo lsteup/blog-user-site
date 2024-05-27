@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FormRow, Logo } from "../components";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -12,12 +13,17 @@ const Register = () => {
   const [values, setValues] = useState(initialState);
 
   const handleChange = (e) => {
-    console.log(e.target);
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      toast.error("Please Fill out all Fields");
+    }
   };
 
   const toggleMember = () => {
