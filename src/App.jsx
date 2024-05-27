@@ -1,17 +1,22 @@
 import { useState, useContext, createContext } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+
+import { LandingPage, Error, Dashboard, Register } from "./pages";
 
 export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
 
 function App() {
   return (
-    <AppContext.Provider value={{ hello: "hello" }}>
-      <p>hello</p>
-      <Outlet />
-    </AppContext.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="landing" element={<LandingPage />} />
+        <Route path="register" element={<Register />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
