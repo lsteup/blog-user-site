@@ -1,4 +1,5 @@
 import { Logo } from "../components";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -10,7 +11,7 @@ const LandingPage = () => {
       <div>
         <h1>blog</h1>
         <p>description</p>
-        <button>Login/Register</button>
+        <Link to="/register">Login/Register</Link>
       </div>
     </main>
   );
