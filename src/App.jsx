@@ -9,6 +9,7 @@ import {
   Register,
   ProtectedRoute,
 } from "./pages";
+import SinglePost from "./pages/SinglePost";
 
 export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
@@ -17,6 +18,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="dashboard/:id"
+          element={
+            <ProtectedRoute>
+              <SinglePost />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route
           path="/dashboard"
           element={
