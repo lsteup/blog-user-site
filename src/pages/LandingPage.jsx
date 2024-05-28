@@ -13,6 +13,7 @@ const LandingPage = () => {
         <p>description</p>
         <Link to="/register">Login/Register</Link>
       </div>
+      <div>Landing Page</div>
     </main>
   );
 };
