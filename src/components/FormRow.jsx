@@ -1,8 +1,14 @@
 const FormRow = ({ type, name, value, handleChange, labelText }) => {
   return (
-    <div>
+    <div className="flex justify-between items-center">
       <label htmlFor={name}>{name}</label>
-      <input type={type} name={name} value={value} onChange={handleChange} />
+      <input
+        className="border border-black"
+        type={type}
+        name={name}
+        value={value}
+        onChange={handleChange}
+      />
     </div>
   );
 };

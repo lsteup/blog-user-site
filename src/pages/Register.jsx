@@ -45,35 +45,41 @@ const Register = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <Logo />
+      <Logo />
+      <form className="border border-black p-8" onSubmit={handleSubmit}>
         <h3>{values.isMember ? "Login" : "Register"}</h3>
-        {!values.isMember && (
+        <div className="flex flex-col gap-4 max-w-sm my-4">
+          {!values.isMember && (
+            <FormRow
+              type="text"
+              name="name"
+              value={values.name}
+              handleChange={handleChange}
+            />
+          )}
           <FormRow
-            type="text"
-            name="name"
-            value={values.name}
+            type="email"
+            name="email"
+            value={values.email}
             handleChange={handleChange}
           />
-        )}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-        />
-        <FormRow
-          type="password"
-          name="password"
-          value={values.password}
-          handleChange={handleChange}
-        />
-        <button disabled={isLoading} type="submit">
+          <FormRow
+            type="password"
+            name="password"
+            value={values.password}
+            handleChange={handleChange}
+          />
+        </div>
+        <button
+          className="p-2 border border-black"
+          disabled={isLoading}
+          type="submit"
+        >
           Submit
         </button>
-        <p>
-          {values.isMember ? "Not a member yet?" : "Already a member?"}
-          <button type="button" onClick={toggleMember}>
+        <p className="text-sm font-light">
+          {values.isMember ? "Not a member yet? " : "Already a member?"}
+          <button className="underline" type="button" onClick={toggleMember}>
             {values.isMember ? "Register" : "Login"}
           </button>
         </p>

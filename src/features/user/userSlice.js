@@ -22,7 +22,8 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
-    console.log(`Login User: ${JSON.stringify(user)}`);
+    try {
+    } catch (error) {}
   }
 );
 
