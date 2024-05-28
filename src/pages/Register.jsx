@@ -24,6 +24,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("clicked submit");
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("Please Fill out all Fields");
@@ -32,8 +33,9 @@ const Register = () => {
     if (isMember) {
       dispatch(loginUser({ email, password }));
       return;
+    } else {
+      dispatch(registerUser({ name, email, password }));
     }
-    dispatch(registerUser({ name, email, password }));
   };
 
   const toggleMember = () => {
@@ -66,7 +68,9 @@ const Register = () => {
           value={values.password}
           handleChange={handleChange}
         />
-        <button type="submit">{values.isMember ? "Login" : "Register"}</button>
+        <button disabled={isLoading} type="submit">
+          Submit
+        </button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
           <button type="button" onClick={toggleMember}>
