@@ -43,13 +43,13 @@ const Register = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (user) {
       setTimeout(() => {
         navigate("/");
       }, 2000);
     }
-  }, [user]);*/
+  }, [user]);
 
   return (
     <div className="h-screen">
