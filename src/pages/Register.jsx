@@ -75,7 +75,7 @@ const Register = () => {
           disabled={isLoading}
           type="submit"
         >
-          Submit
+          {isLoading ? "Loading..." : "Submit"}
         </button>
         <p className="text-sm font-light">
           {values.isMember ? "Not a member yet? " : "Already a member?"}
