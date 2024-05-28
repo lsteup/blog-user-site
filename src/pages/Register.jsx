@@ -26,7 +26,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("clicked submit");
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("Please Fill out all Fields");
@@ -42,58 +41,83 @@ const Register = () => {
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
-    console.log(values);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (user) {
       setTimeout(() => {
         navigate("/");
       }, 2000);
     }
-  }, [user]);
+  }, [user]);*/
 
   return (
-    <div>
+    <div className="h-screen">
       <Logo />
-      <form className="border border-black p-8" onSubmit={handleSubmit}>
-        <h3>{values.isMember ? "Login" : "Register"}</h3>
-        <div className="flex flex-col gap-4 max-w-sm my-4">
-          {!values.isMember && (
+
+      <div className="grid place-content-center w-full h-full">
+        <form className="w-80  mx-auto border-black" onSubmit={handleSubmit}>
+          <h1 className="font-semibold text-2xl text-center mb-8">
+            {!values.isMember ? "Create Your Account" : "Log into Blogspace"}
+          </h1>
+          <div className="my-4">
+            {!values.isMember && (
+              <FormRow
+                type="text"
+                name="name"
+                value={values.name}
+                handleChange={handleChange}
+              />
+            )}
             <FormRow
-              type="text"
-              name="name"
-              value={values.name}
+              type="email"
+              name="email"
+              value={values.email}
               handleChange={handleChange}
             />
+            <FormRow
+              type="password"
+              name="password"
+              value={values.password}
+              handleChange={handleChange}
+            />
+          </div>
+          {!values.isMember && (
+            <p className="text-xs text-stone-500 text-center py-6">
+              By creating an account, you agree to our{" "}
+              <span className="underline">Terms of Service</span> and have read
+              and understood the{" "}
+              <span className="underline">Privacy Policy</span>.
+            </p>
           )}
-          <FormRow
-            type="email"
-            name="email"
-            value={values.email}
-            handleChange={handleChange}
-          />
-          <FormRow
-            type="password"
-            name="password"
-            value={values.password}
-            handleChange={handleChange}
-          />
-        </div>
-        <button
-          className="p-2 border border-black"
-          disabled={isLoading}
-          type="submit"
-        >
-          {isLoading ? "Loading..." : "Submit"}
-        </button>
-        <p className="text-sm font-light">
-          {values.isMember ? "Not a member yet? " : "Already a member?"}
-          <button className="underline" type="button" onClick={toggleMember}>
-            {values.isMember ? "Register" : "Login"}
+          <button
+            className={
+              isLoading
+                ? "p-2 border  w-full bg-stone-200 uppercase text-sm my-6 cursor-not-allowed"
+                : "p-2 border  w-full bg-stone-900 uppercase text-stone-50 my-6 hover:bg-stone-700"
+            }
+            disabled={isLoading}
+            type="submit"
+          >
+            {isLoading ? "Loading..." : "Submit"}
           </button>
-        </p>
-      </form>
+          <p className="text-sm font-light text-center tracking-wider">
+            {values.isMember ? "Not a member yet? " : "Already a member? "}
+            <button className="underline" type="button" onClick={toggleMember}>
+              {values.isMember ? "Register" : "Login"}
+            </button>
+          </p>
+          {values.isMember && (
+            <p className="text-xs text-stone-500 text-center py-6">
+              Secure Login with reCAPTCHA subject to Google {}
+              <span className="underline">Terms</span>
+              {}
+              {} and {}
+              <span className="underline">Privacy</span>.
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
