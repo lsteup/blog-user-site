@@ -56,26 +56,25 @@ const SinglePost = () => {
         <button onClick={togglePublish}>
           {post.published ? "un publish" : "Publish"}
         </button>
-        <Space>
-          <button
-            onClick={() => {
-              Modal.confirm({
-                title: "Are you sure you want to delete this post?",
-                content: "This action cannot be undone",
-                footer: (_, { OkBtn, CancelBtn }) => (
-                  <>
-                    <Button>Set as Private</Button>
-                    <CancelBtn />
-                    <OkBtn />
-                  </>
-                ),
-              });
-            }}
-            className="block border border-black"
-          >
-            delete post
-          </button>
-        </Space>
+        <button className="block border border-black">Edit post</button>
+        <button
+          onClick={() => {
+            Modal.confirm({
+              title: "Are you sure you want to delete this post?",
+              content: "This action cannot be undone",
+              footer: (_, { OkBtn, CancelBtn }) => (
+                <>
+                  <Button>Set as Private</Button>
+                  <CancelBtn />
+                  <OkBtn />
+                </>
+              ),
+            });
+          }}
+          className="block border border-black "
+        >
+          delete post
+        </button>
 
         <div>Comments</div>
         <div>
