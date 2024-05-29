@@ -1,10 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import customFetch from "../utils/axios";
 import { useSelector } from "react-redux";
+import { Modal, Button, Space } from "antd";
 
 const SinglePost = () => {
+  const [modal, setModal] = useState(false);
   const [post, setPost] = useState();
   const [loading, setIsLoading] = useState(true);
   const postId = useLocation().pathname.split("/")[2];
@@ -55,6 +56,27 @@ const SinglePost = () => {
         <button onClick={togglePublish}>
           {post.published ? "un publish" : "Publish"}
         </button>
+        <Space>
+          <button
+            onClick={() => {
+              Modal.confirm({
+                title: "Are you sure you want to delete this post?",
+                content: "This action cannot be undone",
+                footer: (_, { OkBtn, CancelBtn }) => (
+                  <>
+                    <Button>Set as Private</Button>
+                    <CancelBtn />
+                    <OkBtn />
+                  </>
+                ),
+              });
+            }}
+            className="block border border-black"
+          >
+            delete post
+          </button>
+        </Space>
+
         <div>Comments</div>
         <div>
           {post.comments &&
@@ -67,8 +89,6 @@ const SinglePost = () => {
               );
             })}
         </div>
-
-        <div></div>
       </div>
     );
   }

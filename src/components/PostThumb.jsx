@@ -39,6 +39,7 @@ const PostThumb = ({ post }) => {
         <p>
           {!post.published && <button onClick={publishPost}>publish</button>}
         </p>
+        <button>delete</button>
       </div>
     </Link>
   );
