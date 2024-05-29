@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import PostThumb from "./PostThumb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import customFetch from "../utils/axios";
 import { fetchPosts } from "../features/posts/postsSlice";
+import {
+  getFilterFromLocalStorage,
+  addFilterToLocalStorage,
+} from "../utils/localStorage";
 
 const PostsContainer = () => {
   const dispatch = useDispatch();
@@ -12,29 +15,37 @@ const PostsContainer = () => {
     (store) => store.posts.posts
   );
   const [posts, setPosts] = useState(allPosts);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState(getFilterFromLocalStorage);
+
+  const applyFilter = (filter, posts) => {
+    if (filter === "published") {
+      return posts.filter((post) => post.published === true);
+    } else if (filter === "drafts") {
+      return posts.filter((post) => post.published === false);
+    } else {
+      return posts;
+    }
+  };
 
   const setPublished = () => {
-    const published = posts.filter((post) => post.published === true);
-    setPosts(published);
+    addFilterToLocalStorage("published");
     setFilter("published");
   };
 
   const setDrafts = () => {
-    const drafts = posts.filter((post) => post.published === false);
-    setPosts(drafts);
+    addFilterToLocalStorage("drafts");
     setFilter("drafts");
   };
 
   const setAll = () => {
-    setPosts(allPosts);
+    addFilterToLocalStorage("all");
     setFilter("all");
   };
 
   const filters = [
-    ["all", setAll],
-    ["published", setPublished],
-    ["drafts", setDrafts],
+    ["all", setAll, true || false],
+    ["published", setPublished, true],
+    ["drafts", setDrafts, false],
   ];
 
   useEffect(() => {
@@ -42,8 +53,10 @@ const PostsContainer = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setPosts(allPosts);
-  }, [allPosts]);
+    if (allPosts && allPosts.length) {
+      setPosts(applyFilter(filter, allPosts));
+    }
+  }, [allPosts, filter]);
 
   if (isLoading) return <div>Loading...</div>;
   else {

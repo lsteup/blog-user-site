@@ -11,3 +11,15 @@ export const getUserFromLocalStorage = () => {
   const user = result ? JSON.parse(result) : null;
   return user;
 };
+
+export const addFilterToLocalStorage = (filter) => {
+  localStorage.setItem("filter", filter);
+};
+
+export const removeFilterFromLocalStorage = () => {
+  localStorage.removeItem("filter");
+};
+
+export const getFilterFromLocalStorage = () => {
+  return localStorage.getItem("filter") || "all";
+};

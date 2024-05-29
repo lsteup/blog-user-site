@@ -4,6 +4,7 @@ import customFetch from "../../utils/axios";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
+  removeFilterFromLocalStorage,
   removeUserFromLocalStorage,
 } from "../../utils/localStorage";
 import { fetchPosts } from "../posts/postsSlice";
@@ -43,6 +44,7 @@ const userSlice = createSlice({
     logoutUser: (state) => {
       state.user = null;
       removeUserFromLocalStorage();
+      removeFilterFromLocalStorage();
     },
   },
   extraReducers: (builder) => {
