@@ -8,6 +8,7 @@ import {
   Dashboard,
   Register,
   ProtectedRoute,
+  CreatePost,
 } from "./pages";
 import SinglePost from "./pages/SinglePost";
 
@@ -31,6 +32,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
             </ProtectedRoute>
           }
         />
