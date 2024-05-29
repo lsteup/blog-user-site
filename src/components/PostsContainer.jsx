@@ -1,46 +1,33 @@
 import { useEffect, useState } from "react";
 import PostThumb from "./PostThumb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import customFetch from "../utils/axios";
+import { fetchPosts } from "../features/posts/postsSlice";
 
 const PostsContainer = () => {
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.user.user.token);
-  console.log(token);
-  const [posts, setPosts] = useState();
-  const [filteredPosts, setFilteredPosts] = useState();
+  const { posts: allPosts, isLoading } = useSelector(
+    (store) => store.posts.posts
+  );
+  const [posts, setPosts] = useState(allPosts);
   const [filter, setFilter] = useState("all");
-  const [loading, setIsLoading] = useState(true);
-
-  const fetchPosts = async () => {
-    setIsLoading(true);
-    try {
-      const resp = await customFetch("/drafts", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setPosts(resp.data.posts);
-      setFilteredPosts(resp.data.posts);
-      console.log(posts);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
 
   const setPublished = () => {
     const published = posts.filter((post) => post.published === true);
-    setFilteredPosts(published);
+    setPosts(published);
     setFilter("published");
   };
 
   const setDrafts = () => {
     const drafts = posts.filter((post) => post.published === false);
-    setFilteredPosts(drafts);
+    setPosts(drafts);
     setFilter("drafts");
   };
 
   const setAll = () => {
-    setFilteredPosts(posts);
+    setPosts(allPosts);
     setFilter("all");
   };
 
@@ -51,10 +38,16 @@ const PostsContainer = () => {
   ];
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    dispatch(fetchPosts(token));
+  }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
+  useEffect(() => {
+    setPosts(allPosts);
+  }, [allPosts]);
+
+  console.log(posts);
+
+  if (isLoading) return <div>Loading...</div>;
   else {
     return (
       <div className="w-5/6 p-16">
@@ -74,7 +67,7 @@ const PostsContainer = () => {
               </p>
             );
           })}
-          <p>{filteredPosts?.length || 0} posts</p>
+          <p>{posts?.length || 0} posts</p>
         </div>
 
         <div className="grid auto-rows-fr gap-6 ">
@@ -85,8 +78,8 @@ const PostsContainer = () => {
             Create Post
           </Link>
 
-          {filteredPosts &&
-            filteredPosts.map((post) => {
+          {posts.length &&
+            posts.map((post) => {
               return <PostThumb post={post} key={post._id} />;
             })}
         </div>

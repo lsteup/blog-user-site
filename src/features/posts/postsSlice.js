@@ -1,21 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
-export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
-  try {
-    const token = useSelector((store) => store.user.user.token);
-    const resp = await customFetch("/drafts", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return resp.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+export const fetchPosts = createAsyncThunk(
+  "/posts/fetchPosts",
+  async (token) => {
+    try {
+      console.log(token);
+      const resp = await customFetch("/drafts", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return resp.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
   }
-});
+);
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   posts: [],
 };
 
@@ -42,7 +47,7 @@ const postsSlice = createSlice({
         state.isLoading = false;
         state.posts = payload;
       })
-      .addCase(fetchPosts.rejected, (state) => {
+      .addCase(fetchPosts.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error("problem fetching posts");
       });

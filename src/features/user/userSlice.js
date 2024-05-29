@@ -6,6 +6,7 @@ import {
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
 } from "../../utils/localStorage";
+import { fetchPosts } from "../posts/postsSlice";
 
 const initialState = {
   isLoading: false,

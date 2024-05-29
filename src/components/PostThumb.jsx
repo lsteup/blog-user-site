@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const PostThumb = ({ post }) => {
-  console.log(post);
   const { _id: id } = post;
   const [loading, setIsLoading] = useState(false);
 
