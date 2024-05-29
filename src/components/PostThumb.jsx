@@ -6,7 +6,6 @@ import customFetch from "../utils/axios";
 
 const PostThumb = ({ post }) => {
   const token = useSelector((store) => store.user.user.token);
-  const posts = useSelector((store) => store.posts.posts.posts);
   const dispatch = useDispatch();
   const { _id: id } = post;
   const [loading, setIsLoading] = useState(false);

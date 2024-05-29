@@ -11,10 +11,8 @@ import {
 const PostsContainer = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.user.token);
-  const { posts: allPosts, isLoading } = useSelector(
-    (store) => store.posts.posts
-  );
-  const [posts, setPosts] = useState(allPosts);
+  const { posts: allPosts, isLoading } = useSelector((store) => store.posts);
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState(getFilterFromLocalStorage);
 
   const applyFilter = (filter, posts) => {

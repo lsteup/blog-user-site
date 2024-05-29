@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 
 export const fetchPosts = createAsyncThunk(
   "/posts/fetchPosts",
-  async (token) => {
+  async (token, thunkAPI) => {
     try {
       const resp = await customFetch("/drafts", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      return resp.data;
+      return resp.data.posts;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -29,18 +29,11 @@ const postsSlice = createSlice({
   reducers: {
     updatePost: (state, { payload }) => {
       const updatedPost = payload;
-      const index = state.posts.posts.findIndex(
+      const index = state.posts.findIndex(
         (post) => post._id === updatedPost._id
       );
       if (index !== -1) {
-        return {
-          ...state,
-          posts: [
-            ...state.posts.posts.slice(0, index),
-            updatedPost,
-            ...state.posts.posts.slice(index + 1),
-          ],
-        };
+        state.posts[index] = updatedPost;
       }
       return state;
     },
