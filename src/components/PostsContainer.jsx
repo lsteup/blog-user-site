@@ -60,15 +60,23 @@ const PostsContainer = () => {
   else {
     return (
       <div className="w-5/6 p-16">
-        <div className="flex justify-between">
-          <p className="font-bold">My Posts</p>
-          <p className="p-2 bg-stone-900 text-stone-100">Go to website</p>
-        </div>
-        <div className="flex gap-4">
+        {/*<div className="flex justify-between">
+          <p className="font-bold text-3xl tracking-wide mb-8 text-cyan-950">
+            My Posts
+          </p>
+          <p className="grid p-3 bg-cyan-950 text-neutral-100 max-h-8 place-content-center">
+            Go to website
+          </p>
+    </div>*/}
+        <div className="flex gap-4 my-4  py-4 ">
           {filters.map((filterObj) => {
             return (
               <p
-                className={filter === filterObj[0] ? "font-bold" : ""}
+                className={
+                  filter === filterObj[0]
+                    ? "font-bold decoration-cyan-900 underline underline-offset-4 "
+                    : "decoration-neutral-300 underline underline-offset-4"
+                }
                 key={filterObj[0]}
                 onClick={filterObj[1]}
               >
@@ -76,7 +84,7 @@ const PostsContainer = () => {
               </p>
             );
           })}
-          <p>{posts?.length || 0} posts</p>
+          <p className="grow text-end">{posts?.length || 0} posts</p>
         </div>
 
         <div className="grid auto-rows-fr gap-6 ">
