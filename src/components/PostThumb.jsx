@@ -1,7 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { updatePost } from "../features/posts/postsSlice";
+import customFetch from "../utils/axios";
 
 const PostThumb = ({ post }) => {
+  const token = useSelector((store) => store.user.user.token);
+  const posts = useSelector((store) => store.posts.posts.posts);
+  const dispatch = useDispatch();
   const { _id: id } = post;
   const [loading, setIsLoading] = useState(false);
 
@@ -17,7 +23,7 @@ const PostThumb = ({ post }) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      post.published = !post.published;
+      dispatch(updatePost(resp.data.post));
     } catch (error) {
       console.log(error);
     }

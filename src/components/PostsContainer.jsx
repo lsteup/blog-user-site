@@ -45,8 +45,6 @@ const PostsContainer = () => {
     setPosts(allPosts);
   }, [allPosts]);
 
-  console.log(posts);
-
   if (isLoading) return <div>Loading...</div>;
   else {
     return (
@@ -78,7 +76,7 @@ const PostsContainer = () => {
             Create Post
           </Link>
 
-          {posts.length &&
+          {posts &&
             posts.map((post) => {
               return <PostThumb post={post} key={post._id} />;
             })}

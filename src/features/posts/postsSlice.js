@@ -7,7 +7,6 @@ export const fetchPosts = createAsyncThunk(
   "/posts/fetchPosts",
   async (token) => {
     try {
-      console.log(token);
       const resp = await customFetch("/drafts", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -30,12 +29,20 @@ const postsSlice = createSlice({
   reducers: {
     updatePost: (state, { payload }) => {
       const updatedPost = payload;
-      const index = state.posts.findIndex(
+      const index = state.posts.posts.findIndex(
         (post) => post._id === updatedPost._id
       );
       if (index !== -1) {
-        state.posts[index] = updatedPost;
+        return {
+          ...state,
+          posts: [
+            ...state.posts.posts.slice(0, index),
+            updatedPost,
+            ...state.posts.posts.slice(index + 1),
+          ],
+        };
       }
+      return state;
     },
   },
   extraReducers: (builder) => {
@@ -47,9 +54,9 @@ const postsSlice = createSlice({
         state.isLoading = false;
         state.posts = payload;
       })
-      .addCase(fetchPosts.rejected, (state, { payload }) => {
+      .addCase(fetchPosts.rejected, (state, { error }) => {
         state.isLoading = false;
-        toast.error("problem fetching posts");
+        toast.error("problem fetching posts:", error.message);
       });
   },
 });
