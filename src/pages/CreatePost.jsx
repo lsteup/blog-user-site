@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { FormRow } from "../components";
+import { FormRow, Navbar } from "../components";
 import customFetch from "../utils/axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import background from "/background.jpg";
 
 const CreatePost = () => {
   const [loading, setIsLoading] = useState(false);
@@ -53,21 +54,26 @@ const CreatePost = () => {
 
   return (
     <div>
-      <h1>Create Post</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <FormRow
+      <Navbar />
+      <form className="p-16 font-serif" onSubmit={(e) => handleSubmit(e)}>
+        <div className="my-6 w-full"></div>
+        <input
+          className="caret-stone-400 w-full font-light text-4xl block placeholder:capitalize placeholder-stone-400  focus:outline-none  py-2 my-1 "
+          placeholder="Title"
           type="text"
           name="title"
           value={values.name}
-          handleChange={handleChange}
+          onChange={handleChange}
         />
-        <label htmlFor="content">Content</label>
+
         <textarea
+          className="placeholder:text-stone-400 text-xl w-full text-black  focus:outline-none "
           onChange={handleChange}
           name="content"
           id="content"
           cols="30"
           rows="10"
+          placeholder="Share your story ..."
         ></textarea>
         <button
           className={

@@ -52,9 +52,7 @@ const Register = () => {
   }, [user]);
 
   return (
-    <div className="h-screen">
-      <Logo />
-
+    <div className="h-screen bg-stone-100">
       <div className="grid place-content-center w-full h-full">
         <form className="w-80  mx-auto border-black" onSubmit={handleSubmit}>
           <h1 className="font-semibold text-2xl text-center mb-8">
