@@ -14,6 +14,7 @@ const PostsContainer = () => {
   const { posts: allPosts, isLoading } = useSelector((store) => store.posts);
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState(getFilterFromLocalStorage);
+  //const [query, setQuery] = useState("");
 
   const applyFilter = (filter, posts) => {
     if (filter === "published") {
@@ -23,6 +24,20 @@ const PostsContainer = () => {
     } else {
       return posts;
     }
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    const query = e.target.value;
+    const filtered = applyFilter(filter, allPosts);
+    const newPosts = filtered.filter((post) =>
+      post.title.toLowerCase().startsWith(query.toLowerCase())
+    );
+    setPosts(newPosts);
+  };
+
+  const handleReset = () => {
+    setPosts(applyFilter(filter, allPosts));
   };
 
   const setPublished = () => {
@@ -60,14 +75,15 @@ const PostsContainer = () => {
   else {
     return (
       <div className="w-5/6 p-16">
-        {/*<div className="flex justify-between">
-          <p className="font-bold text-3xl tracking-wide mb-8 text-cyan-950">
-            My Posts
-          </p>
-          <p className="grid p-3 bg-cyan-950 text-neutral-100 max-h-8 place-content-center">
-            Go to website
-          </p>
-    </div>*/}
+        <form onReset={handleReset} action="">
+          <input
+            onChange={(e) => handleChange(e)}
+            className="border border-black w-full rounded-lg p-1"
+            type="text"
+            placeholder="search by title..."
+          />
+          <button type="reset">clear</button>
+        </form>
         <div className="flex gap-4 my-4  py-4 ">
           {filters.map((filterObj) => {
             return (
