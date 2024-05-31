@@ -10,6 +10,7 @@ const initialState = {
   email: "",
   password: "",
   isMember: true,
+  bio: "",
 };
 
 const Register = () => {
@@ -24,9 +25,14 @@ const Register = () => {
     setValues({ ...values, [name]: value });
   };
 
+  const handleBio = (e) => {
+    const bio = e.target.value;
+    setValues({ ...values, bio });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, isMember } = values;
+    const { name, email, password, isMember, bio } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("Please Fill out all Fields");
       return;
@@ -35,7 +41,7 @@ const Register = () => {
       dispatch(loginUser({ email, password }));
       return;
     } else {
-      dispatch(registerUser({ name, email, password }));
+      dispatch(registerUser({ name, email, password, bio }));
     }
   };
 
@@ -80,13 +86,26 @@ const Register = () => {
               handleChange={handleChange}
             />
           </div>
+
           {!values.isMember && (
-            <p className="text-xs text-stone-500 text-center py-6">
-              By creating an account, you agree to our{" "}
-              <span className="underline">Terms of Service</span> and have read
-              and understood the{" "}
-              <span className="underline">Privacy Policy</span>.
-            </p>
+            <div>
+              <label htmlFor="bio">Bio</label>
+              <textarea
+                onChange={(e) => handleBio(e)}
+                placeholder="please provide a short bio about yourself."
+                name="bio"
+                id="bio"
+                cols="30"
+                rows="10"
+                minLength="10"
+              ></textarea>
+              <p className="text-xs text-stone-500 text-center py-6">
+                By creating an account, you agree to our{" "}
+                <span className="underline">Terms of Service</span> and have
+                read and understood the{" "}
+                <span className="underline">Privacy Policy</span>.
+              </p>
+            </div>
           )}
           <button
             className={
