@@ -14,6 +14,7 @@ const CreatePost = () => {
   const initialState = {
     title: "",
     content: "",
+    image: "",
   };
   const [values, setValues] = useState(initialState);
 
@@ -27,12 +28,26 @@ const CreatePost = () => {
     console.log(token);
     e.preventDefault();
     setIsLoading(true);
+
     try {
+      let path;
+      if (values.image) {
+        const formData = new FormData();
+        formData.append("image", values.image);
+        const response = await customFetch.post("/posts/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        path = response.data.image.src;
+      }
+
       const resp = await customFetch.post(
         "/posts",
         {
           title: values.title,
           content: values.content,
+          image: path,
         },
         {
           headers: {
@@ -49,6 +64,10 @@ const CreatePost = () => {
       console.log(err);
     }
     setIsLoading(false);
+  };
+
+  const handleImgChange = (e) => {
+    setValues({ ...values, image: e.target.files[0] });
     console.log(values);
   };
 
@@ -75,6 +94,7 @@ const CreatePost = () => {
           rows="10"
           placeholder="Share your story ..."
         ></textarea>
+        <input type="file" onChange={handleImgChange}></input>
         <button
           className={
             loading

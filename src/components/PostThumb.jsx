@@ -44,6 +44,7 @@ const PostThumb = ({ post }) => {
         <div className="border border-dotted border-stone-400 min-w-12 text-5xl uppercase text-cyan-800 text-center font-serif">
           {post.title.slice(0, 1)}
         </div>
+        {post.image && <img className="max-w-20" src={post.image} alt="" />}
         <div className="grow">
           <p className="font-light text-black">{post.title}</p>
           <div className="flex gap-4">
