@@ -120,7 +120,7 @@ const SinglePost = () => {
             {post.comments &&
               post.comments.map((comment) => {
                 return (
-                  <div key={comment._id}>
+                  <div key={comment._id} id={comment._id}>
                     <p>{comment.content}</p>
                     <p>{comment.author}</p>
                   </div>
