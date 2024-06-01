@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import customFetch from "../utils/axios";
 import { useSelector } from "react-redux";
-
+import { MdDeleteOutline } from "react-icons/md";
 import { Navbar } from "../components";
+import { GoReply } from "react-icons/go";
 
 import PostEditBar from "../components/PostEditBar";
 
@@ -61,7 +62,7 @@ const SinglePost = () => {
   if (loading) return <div>Loading ...</div>;
   else {
     return (
-      <div>
+      <div className="font-sans">
         <Navbar />
         <div className="p-16 text-stone-900 w-5/6 mx-auto ">
           <div className="text-4xl capitalize font-bold mb-8">{post.title}</div>
@@ -83,17 +84,46 @@ const SinglePost = () => {
           </pre>
           <PostEditBar togglePublish={togglePublish} post={post} />
 
-          <div>Comments</div>
-          <div>
-            {post.comments &&
+          <div className="text-xl my-8">
+            Responses {`(${post.comments.length})`}
+          </div>
+          <div className="divide-y">
+            <div></div>
+            {post.comments.length &&
               post.comments.map((comment) => {
+                const commentDate = new Date(
+                  comment?.createdAt
+                ).toLocaleDateString("en-US", dateOptions);
                 return (
-                  <div key={comment._id} id={comment._id}>
-                    <p>{comment.content}</p>
-                    <p>{comment.author}</p>
+                  <div
+                    className="text-sm py-4 "
+                    key={comment._id}
+                    id={comment._id}
+                  >
+                    <div className="flex justify-between">
+                      <div className="text-sm">
+                        <p>{comment.author}</p>
+                        <p className="text-stone-500">{commentDate}</p>
+                      </div>
+                      <div className="flex align-start">
+                        <button className=" text-stone-500 p-2 rounded-md flex items-center gap-1 text-xs">
+                          <MdDeleteOutline
+                            className="text-red-500"
+                            size="1.2em"
+                          />
+                          <p>Delete</p>
+                        </button>
+                        <button className="  p-2 rounded-md flex items-center gap-2 text-xs text-stone-900 ">
+                          <GoReply />
+                          <p>Respond</p>
+                        </button>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-base">{comment.content}</p>
                   </div>
                 );
               })}
+            <div></div>
           </div>
         </div>
       </div>

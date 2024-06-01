@@ -1,7 +1,7 @@
 import { FaRegComment } from "react-icons/fa";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
-import { MdOutlineCancelPresentation, MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 import { Modal, Button, Space } from "antd";
 
 const PostEditBar = ({ togglePublish, post }) => {
@@ -22,9 +22,7 @@ const PostEditBar = ({ togglePublish, post }) => {
               text-sm "
       >
         {post.published ? (
-          <div className="flex items-center gap-2 ">
-            <MdOutlineCancelPresentation className="text-orange-500" />
-
+          <div className="flex items-center gap-1 ">
             <p>Set As Private</p>
           </div>
         ) : (
