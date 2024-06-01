@@ -18,7 +18,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user, thunkAPI) => {
     try {
-      user.image = `https://avatar.oxro.io/avatar.svg?name=${user.name}&length=1&caps=1`;
+      user.image = `https://avatar.oxro.io/avatar.svg?name=${user.name}&length=2&caps=1`;
       const resp = await customFetch.post("/auth/register", user);
       return resp.data;
     } catch (error) {
@@ -46,6 +46,12 @@ const userSlice = createSlice({
       state.user = null;
       removeUserFromLocalStorage();
       removeFilterFromLocalStorage();
+    },
+    updateUser: (state, { payload }) => {
+      removeUserFromLocalStorage();
+      console.log(payload);
+      state.user = { ...state.user, ...payload };
+      addUserToLocalStorage(state.user);
     },
   },
   extraReducers: (builder) => {
@@ -81,6 +87,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logoutUser } = userSlice.actions;
+export const { logoutUser, updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

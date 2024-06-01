@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../features/user/userSlice";
+import { logoutUser, updateUser } from "../features/user/userSlice";
 import logo from "/logo.png";
 import { Modal, Form, Input, Button, Avatar } from "antd";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import customFetch from "../utils/axios";
+import { toast } from "react-toastify";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -12,6 +16,7 @@ const Navbar = () => {
   const initialState = { name: false, bio: false, photo: false };
   const [isEditMode, setIsEditMode] = useState(initialState);
   const [values, setValues] = useState({});
+  const token = useSelector((store) => store.user.user.token);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -40,14 +45,57 @@ const Navbar = () => {
 
   //const [form] = Form.useForm();
 
-  const onFinish = () => {
+  const onFinish = async () => {
+    let path;
+    if (values.image) {
+      try {
+        const formData = new FormData();
+        formData.append("image", values.image);
+        const response = await customFetch.post("/posts/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        path = response.data.image.src;
+      } catch (error) {
+        toast.error("something went wrong. Try again in a few moments.");
+      }
+    }
+    const body = values;
+    if (body.image) body.image = path;
+    if (body.name && !body.image) {
+      body.image = `https://avatar.oxro.io/avatar.svg?name=${body.name}&length=2&caps=1`;
+    }
+
+    if (Object.keys(body).length) {
+      try {
+        const resp = await customFetch.patch(
+          "/users/profile/edit",
+          {
+            ...body,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(resp);
+        dispatch(updateUser(resp.data.user));
+        toast.success("profile updated");
+      } catch (error) {
+        toast.error("something went wrong");
+      }
+    }
+
     setIsEditMode(initialState);
-    console.log("Form Values:", values);
+    setValues({});
     handleOk(); // Close modal after form submission
   };
 
   return (
-    <nav className="flex justify-between border-b-4 border-cyan-950 box-border items-center ">
+    <nav className="flex text-stone-500  justify-between border-b border-stone-150 box-border items-center p-2 gap-8">
       <Modal
         title="Profile"
         open={isModalVisible}
@@ -75,7 +123,8 @@ const Navbar = () => {
               <div>
                 {(!isEditMode.name && user.name) || (
                   <input
-                    placeholder="Name"
+                    placeholder={user.name}
+                    value={user.name}
                     onChange={(e) => handleChange(e, "name")}
                     type="text"
                   ></input>
@@ -91,6 +140,7 @@ const Navbar = () => {
                   {(!isEditMode.bio && user.bio) || (
                     <input
                       placeholder={user.bio}
+                      value={user.bio}
                       onChange={(e) => handleChange(e, "bio")}
                       type="text"
                     ></input>
@@ -107,24 +157,33 @@ const Navbar = () => {
               >
                 submit
               </button>
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch(logoutUser());
+                }}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
       </Modal>
-      <img className="max-w-24 max-h-24" src={logo} alt="" />
-      <p>Dashboard</p>
-      <p>Visit Website</p>
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(logoutUser());
-        }}
-      >
-        Logout
-      </button>
+
+      <Link className="" to="/dashboard">
+        {" "}
+        <img className="max-h-10  mx-4" src={logo} alt="" />
+      </Link>
+      <Link className="grow">Visit Website</Link>
+
+      <Link className="flex items-center font-normal text-sm gap-2 hover:text-stone-800">
+        <HiOutlinePencilSquare />
+        <p>Write</p>
+      </Link>
+
       <img
         onClick={showModal}
-        className="max-w-12 max-h-12 mr-4"
+        className="max-w-8 max-h-10 mr-4 cursor-pointer"
         src={img}
         alt=""
       />
