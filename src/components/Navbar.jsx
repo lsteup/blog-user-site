@@ -176,7 +176,10 @@ const Navbar = () => {
       </Link>
       <Link className="grow">Visit Website</Link>
 
-      <Link className="flex items-center font-normal text-sm gap-2 hover:text-stone-800">
+      <Link
+        to="/create"
+        className="flex items-center font-normal text-sm gap-2 hover:text-stone-800"
+      >
         <HiOutlinePencilSquare />
         <p>Write</p>
       </Link>

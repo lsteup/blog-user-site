@@ -72,12 +72,15 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <form className="p-16 font-serif" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        className="p-16 font-serif min-h-full grow"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <div className="my-6 w-full"></div>
         <input
-          className="caret-stone-400 w-full font-light text-4xl block placeholder:capitalize placeholder-stone-400  focus:outline-none  py-2 my-1 "
+          className=" caret-stone-400 w-full font-light text-4xl block placeholder:capitalize placeholder-stone-400  focus:outline-none  py-2 mb-8 "
           placeholder="Title"
           type="text"
           name="title"
@@ -86,7 +89,7 @@ const CreatePost = () => {
         />
 
         <textarea
-          className="placeholder:text-stone-400 text-xl w-full text-black  focus:outline-none "
+          className="placeholder:text-stone-400 text-xl grow w-full text-black  focus:outline-none mb-8 "
           onChange={handleChange}
           name="content"
           id="content"

@@ -74,7 +74,7 @@ const PostsContainer = () => {
   if (isLoading) return <div>Loading...</div>;
   else {
     return (
-      <div className="w-5/6 p-16">
+      <div className=" p-16">
         <form onReset={handleReset} action="">
           <input
             onChange={(e) => handleChange(e)}

@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   if (isLoading) return <div>Loading ...</div>;
   return (
-    <div>
+    <div className="w-1/4">
       <h1>recent activity</h1>
       <div>
         {activity.map((comment) => {

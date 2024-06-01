@@ -87,42 +87,44 @@ const SinglePost = () => {
           <div className="text-xl my-8">
             Responses {`(${post.comments.length})`}
           </div>
+          {post.comments.length === 0 && (
+            <div>No one has left a comment yet.</div>
+          )}
           <div className="divide-y">
             <div></div>
-            {post.comments.length &&
-              post.comments.map((comment) => {
-                const commentDate = new Date(
-                  comment?.createdAt
-                ).toLocaleDateString("en-US", dateOptions);
-                return (
-                  <div
-                    className="text-sm py-4 "
-                    key={comment._id}
-                    id={comment._id}
-                  >
-                    <div className="flex justify-between">
-                      <div className="text-sm">
-                        <p>{comment.author}</p>
-                        <p className="text-stone-500">{commentDate}</p>
-                      </div>
-                      <div className="flex align-start">
-                        <button className=" text-stone-500 p-2 rounded-md flex items-center gap-1 text-xs">
-                          <MdDeleteOutline
-                            className="text-red-500"
-                            size="1.2em"
-                          />
-                          <p>Delete</p>
-                        </button>
-                        <button className="  p-2 rounded-md flex items-center gap-2 text-xs text-stone-900 ">
-                          <GoReply />
-                          <p>Respond</p>
-                        </button>
-                      </div>
+            {post.comments.map((comment) => {
+              const commentDate = new Date(
+                comment?.createdAt
+              ).toLocaleDateString("en-US", dateOptions);
+              return (
+                <div
+                  className="text-sm py-4 "
+                  key={comment._id}
+                  id={comment._id}
+                >
+                  <div className="flex justify-between">
+                    <div className="text-sm">
+                      <p className="text-stone-900">{comment.author}</p>
+                      <p className="text-stone-500">{commentDate}</p>
                     </div>
-                    <p className="mt-2 text-base">{comment.content}</p>
+                    <div className="flex align-start">
+                      <button className=" text-stone-500 p-2 rounded-md flex items-center gap-1 text-xs">
+                        <MdDeleteOutline
+                          className="text-red-500"
+                          size="1.2em"
+                        />
+                        <p>Delete</p>
+                      </button>
+                      <button className="  p-2 rounded-md flex items-center gap-2 text-xs text-stone-900 ">
+                        <GoReply />
+                        <p>Respond</p>
+                      </button>
+                    </div>
                   </div>
-                );
-              })}
+                  <p className="mt-2 text-base">{comment.content}</p>
+                </div>
+              );
+            })}
             <div></div>
           </div>
         </div>
