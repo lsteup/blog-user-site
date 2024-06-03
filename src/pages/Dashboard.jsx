@@ -9,7 +9,7 @@ const Dashboard = () => {
     <div>
       <Navbar />
 
-      <div className="flex">
+      <div className="flex min-h-screen">
         <Sidebar />
         <PostsContainer />
       </div>

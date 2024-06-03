@@ -74,7 +74,7 @@ const PostsContainer = () => {
   if (isLoading) return <div>Loading...</div>;
   else {
     return (
-      <div className="p-4 md:p-8 xl:px-16 w-full mt-4 sm:mt-8 max-w-md sm:max-w-lg md:max-w-4xl 2xl:max-w-5xl mx-auto">
+      <div className=" p-4 md:p-8 xl:px-16 w-full mt-4 sm:mt-8 max-w-md sm:max-w-lg md:max-w-4xl 2xl:max-w-5xl mx-auto">
         <h1 className="font-medium text-xl sm:text-2xl 2xl:text-4xl 2xl:mb-8">
           Dashboard
         </h1>

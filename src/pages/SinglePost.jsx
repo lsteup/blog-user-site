@@ -8,6 +8,7 @@ import { GoReply } from "react-icons/go";
 
 import PostEditBar from "../components/PostEditBar";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SinglePost = () => {
   const user = useSelector((store) => store.user.user);
@@ -48,7 +49,9 @@ const SinglePost = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
+      if (!post.published) {
+        toast.success("Post published");
+      }
       setPost(resp.data.post);
       setIsLoading(false);
     } catch (error) {

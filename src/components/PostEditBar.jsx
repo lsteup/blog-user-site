@@ -3,6 +3,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md";
 import { Modal, Button, Space } from "antd";
+import { Link } from "react-router-dom";
 
 const PostEditBar = ({ togglePublish, post }) => {
   return (
@@ -12,10 +13,13 @@ const PostEditBar = ({ togglePublish, post }) => {
         <p>{post.comments.length}</p>
       </div>
 
-      <button className=" text-stone-500 p-2 rounded-md flex items-center gap-2 ">
+      <Link
+        to="edit"
+        className=" text-stone-500 p-2 rounded-md flex items-center gap-2 "
+      >
         <MdOutlineModeEdit size="1.2em" />
         <p>Edit</p>
-      </button>
+      </Link>
       <button
         onClick={togglePublish}
         className="text-stone-500 p-2 rounded-md 

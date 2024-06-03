@@ -11,6 +11,7 @@ import {
   CreatePost,
 } from "./pages";
 import SinglePost from "./pages/SinglePost";
+import EditPost from "./pages/EditPost";
 
 export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
@@ -24,6 +25,14 @@ function App() {
           element={
             <ProtectedRoute>
               <SinglePost />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="dashboard/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditPost />
             </ProtectedRoute>
           }
         ></Route>
