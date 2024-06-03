@@ -128,7 +128,7 @@ const Navbar = () => {
               <p className="font-medium ">Name</p>
               <input
                 placeholder={user.name}
-                value={user.name}
+                value={values.name}
                 onChange={(e) => handleChange(e, "name")}
                 type="text"
                 className="p-2 focus:border-b focus:border-0 focus:ouline-none focus:ring-0"
@@ -138,7 +138,7 @@ const Navbar = () => {
               <p className="font-medium text-base mb-2 ">Bio</p>
               <textarea
                 className="w-full h-[11rem] text-sm "
-                value={user.bio}
+                value={values.bio}
                 placeholder={user.bio}
                 onChange={(e) => handleChange(e, "bio")}
               ></textarea>
