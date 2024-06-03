@@ -33,8 +33,13 @@ const Sidebar = () => {
       <h1 className="text-2xl  capitalize text-stone-500 2xl:text-3xl">
         recent activity
       </h1>
-      <div className="py-8 divide-y flex flex-col gap-4 divide-stone-200">
+
+      <div className="py-8 divide-y flex flex-col gap-4  divide-stone-200 divide-dotted ">
+        {!activity.length && (
+          <p className=" text-stone-800">No activity to show ...</p>
+        )}
         <p></p>
+
         {activity.map((comment) => {
           return (
             <Link
@@ -46,7 +51,6 @@ const Sidebar = () => {
             </Link>
           );
         })}
-        <p></p>
       </div>
     </div>
   );
