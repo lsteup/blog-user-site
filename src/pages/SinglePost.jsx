@@ -71,7 +71,7 @@ const SinglePost = () => {
 
         <div className="flex">
           <Sidebar />
-          <div className=" px-4 max-w-3xl 2xl:max-w-4xl mx-auto sm:px-8 mt-4 py-6 text-stone-900">
+          <div className="w-full px-4 max-w-3xl 2xl:max-w-4xl mx-auto sm:px-8 mt-4 py-6 text-stone-900">
             <Link to="/dashboard">
               <button className="p-2 border border-black rounded">
                 Back to Posts
