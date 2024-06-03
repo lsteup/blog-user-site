@@ -95,7 +95,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex text-stone-500  justify-between border-b border-stone-150 box-border items-center p-2 gap-8">
+    <nav className="flex w-full text-stone-500  justify-between border-b border-stone-150 box-border items-center p-2 sm:p-4 gap-8 xl:text-lg ">
       <Modal
         title="Profile"
         open={isModalVisible}
@@ -172,13 +172,16 @@ const Navbar = () => {
 
       <Link className="" to="/dashboard">
         {" "}
-        <img className="max-h-10  mx-4" src={logo} alt="" />
+        <img className="max-h-10 2xl:max-h-16  ml-2" src={logo} alt="" />
       </Link>
-      <Link className="grow">Visit Website</Link>
+
+      <Link className="hidden md:block md:border-s-black grow">
+        Visit Website
+      </Link>
 
       <Link
         to="/create"
-        className="flex items-center font-normal text-sm gap-2 hover:text-stone-800"
+        className="hidden md:flex items-center font-normal text-sm md:text-base gap-2 hover:text-stone-800 xl:text-lg"
       >
         <HiOutlinePencilSquare />
         <p>Write</p>
@@ -186,7 +189,7 @@ const Navbar = () => {
 
       <img
         onClick={showModal}
-        className="max-w-8 max-h-10 mr-4 cursor-pointer"
+        className="max-w-8 sm:max-w-10 2xl:max-w-12 mr-4 cursor-pointer"
         src={img}
         alt=""
       />

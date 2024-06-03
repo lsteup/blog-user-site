@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import customFetch from "../utils/axios";
 import { HashLink as Link } from "react-router-hash-link";
+import Notification from "./Notification";
 
 const Sidebar = () => {
   const [activity, setActivity] = useState([]);
@@ -14,7 +15,7 @@ const Sidebar = () => {
       setIsLoading(true);
       const result = await customFetch.get(`/users/${userId}`);
       const activity = result.data.data.activity;
-      setActivity(activity);
+      setActivity(activity.slice(0, 10));
       console.log(activity);
       setIsLoading(false);
     } catch (err) {
@@ -28,22 +29,24 @@ const Sidebar = () => {
 
   if (isLoading) return <div>Loading ...</div>;
   return (
-    <div className="w-1/4">
-      <h1>recent activity</h1>
-      <div>
+    <div className="p-16 px-8 xl:px-12 min-w-60 border-r hidden lg:block">
+      <h1 className="text-2xl  capitalize text-stone-500 2xl:text-4xl">
+        recent activity
+      </h1>
+      <div className="py-8 divide-y flex flex-col gap-4 divide-stone-200">
+        <p></p>
         {activity.map((comment) => {
           return (
             <Link
               to={`/dashboard/${comment.post._id}/#${comment._id}`}
-              className="border border-black"
+              className=""
               key={comment._id}
             >
-              <p>{comment.content}</p>
-              <p>{comment.author}</p>
-              <p>{comment.post.title}</p>
+              <Notification comment={comment} />
             </Link>
           );
         })}
+        <p></p>
       </div>
     </div>
   );

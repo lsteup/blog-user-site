@@ -74,17 +74,12 @@ const PostsContainer = () => {
   if (isLoading) return <div>Loading...</div>;
   else {
     return (
-      <div className=" p-16">
-        <form onReset={handleReset} action="">
-          <input
-            onChange={(e) => handleChange(e)}
-            className="border border-black w-full rounded-lg p-1"
-            type="text"
-            placeholder="search by title..."
-          />
-          <button type="reset">clear</button>
-        </form>
-        <div className="flex gap-4 my-4  py-4 ">
+      <div className="p-4 md:p-8 xl:px-16 w-full mt-4 sm:mt-8 max-w-md sm:max-w-lg md:max-w-4xl 2xl:max-w-5xl mx-auto">
+        <h1 className="font-medium text-xl sm:text-2xl 2xl:text-4xl 2xl:mb-8">
+          Dashboard
+        </h1>
+
+        <div className="flex text-sm md:text-base xl:text-lg 2xl:text-xl capitalize gap-4 py-4 ">
           {filters.map((filterObj) => {
             return (
               <p
@@ -100,13 +95,33 @@ const PostsContainer = () => {
               </p>
             );
           })}
-          <p className="grow text-end">{posts?.length || 0} posts</p>
+          <p className="grow text-end text-stone-500">
+            {posts?.length || 0} posts
+          </p>
         </div>
 
-        <div className="grid auto-rows-fr gap-6 ">
+        <div className=" flex flex-col gap-4 items-center mt-4 sm:mt-8">
+          <form
+            className="hidden lg:flex mb-4 gap-8 max-w-4xl w-full "
+            onReset={handleReset}
+            action=""
+          >
+            <input
+              onChange={(e) => handleChange(e)}
+              className="border border-black w-full  rounded-lg px-2 py-1 placeholder-stone-500 "
+              type="text"
+              placeholder="Filter posts ..."
+            />
+            <button
+              className="font-medium text-sm px-2 py-1 border border-black"
+              type="reset"
+            >
+              Clear
+            </button>
+          </form>
           <Link
             to="/create"
-            className="font-semibold border border-dotted border-stone-400 text-stone-500 text-xl content-center text-center"
+            className="min-h-20 w-full max-w-md sm:max-w-lg md:max-w-4xl font-medium border border-dotted border-stone-400 text-stone-500 text-xl 2xl:text-2xl content-center text-center"
           >
             Create Post
           </Link>

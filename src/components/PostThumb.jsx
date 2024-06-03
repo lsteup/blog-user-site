@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updatePost } from "../features/posts/postsSlice";
 import customFetch from "../utils/axios";
-import { MdModeComment } from "react-icons/md";
+import { FaRegComment } from "react-icons/fa";
 
 const PostThumb = ({ post }) => {
   const token = useSelector((store) => store.user.user.token);
@@ -38,25 +38,24 @@ const PostThumb = ({ post }) => {
   return (
     <Link
       to={`/dashboard/${id}`}
-      className="box-border font-semibold border border-dotted border-stone-400 text-stone-500 text-xl  "
+      className="max-w-md sm:max-w-lg md:max-w-4xl md:max-h-48  box-border w-full font-semibold border border-stone-300 text-stone-500 text-xl  "
     >
-      <div className="flex items-center justify-between min-h-16 p-4 gap-4">
-        {post.image && <img className="max-w-20" src={post.image} alt="" />}
-        <div className="grow">
-          <p className="font-light text-black">{post.title}</p>
-          <div className="flex gap-4">
-            <p className="font-light text-sm">
-              {post.published ? "Published" : "Draft"}
-            </p>
-            <p className="font-light text-sm"> {date}</p>
+      <div className="flex flex-col  md:flex-row md:items-center min-h-16 md:gap-4">
+        {post.image && <img className="md:max-h-48" src={post.image} alt="" />}
+        <div className="p-4">
+          <p className="mb-1 text-black font-medium text-base md:text-lg 2xl:text-xl">
+            {post.title}
+          </p>
+          <div className="flex gap-2 items-center text-sm md:text-base 2xl:text-lg font-light">
+            <p className="">{post.published ? "Published" : "Draft"}</p>
+            <p>•</p>
+            <p className=""> {date}</p>
+            <p>•</p>
+            <div className="flex gap-1 items-center">
+              <FaRegComment className="" />
+              <p>{post.comments.length || 0}</p>
+            </div>
           </div>
-        </div>
-        <p>
-          {!post.published && <button onClick={publishPost}>publish</button>}
-        </p>
-        <div className="flex gap-1 items-center">
-          <MdModeComment className="text-cyan-900" />
-          <p>{post.comments.length || 0}</p>
         </div>
       </div>
     </Link>

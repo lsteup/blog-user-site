@@ -9,7 +9,7 @@ const Dashboard = () => {
     <div>
       <Navbar />
 
-      <div className="flex gap-16">
+      <div className="flex">
         <Sidebar />
         <PostsContainer />
       </div>
