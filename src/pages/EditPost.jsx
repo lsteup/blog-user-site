@@ -123,7 +123,7 @@ const EditPost = () => {
             value={values.content}
           ></textarea>
           {(!editPhoto && (
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center mb-4">
               <img
                 className="object-cover aspect-square max-w-40"
                 src={values.image}
@@ -134,7 +134,7 @@ const EditPost = () => {
                   onClick={() => {
                     setEditPhoto(true);
                   }}
-                  className="block"
+                  className="block border border-black bg-stone-50 p-2 rounded py-1 my-2"
                 >
                   {values.image && values.image != "deleted"
                     ? "Change Image"
@@ -145,7 +145,7 @@ const EditPost = () => {
                     setValues({ ...values, image: "deleted" });
                     setEditPhoto(true);
                   }}
-                  className="block"
+                  className="block border border-black bg-stone-50 p-2 rounded py-1"
                 >
                   Delete Photo
                 </button>

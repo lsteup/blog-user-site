@@ -9,7 +9,6 @@ export default {
         sans: ["Helvetica Neue", "sans-serif"],
       },
     },
-    transitionDuration: { default: "700ms" },
   },
   plugins: [],
 };

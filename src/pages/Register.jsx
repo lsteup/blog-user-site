@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { FormRow, Logo } from "../components";
+import { Button, FormRow, Logo } from "../components";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -58,55 +59,73 @@ const Register = () => {
   }, [user]);
 
   return (
-    <div className="h-screen bg-stone-100">
-      <div className="grid place-content-center w-full h-full">
-        <form className="w-80  mx-auto border-black" onSubmit={handleSubmit}>
+    <div className="min-h-screen flex flex-col bg-stone-50">
+      <nav className="bg-stone-50 mb-8 flex w-full  text-stone-500 sticky z-10 top-0  justify-between border-b border-stone-150 box-border items-center p-4 sm:p-4 sm:px-6 gap-4 xl:text-lg">
+        <div className="flex items-center gap-2">
+          <Logo />
+          <p className="text-lg text-black font-medium font-sans">BlogSpace</p>
+        </div>
+        <Link className="grow text-right">Go To Website</Link>
+
+        <Button link="register" text="Register" />
+      </nav>
+      <div className="flex grow justify-center items-center w-full ">
+        <form
+          className="w-80 pb-8 mx-auto border-black"
+          onSubmit={handleSubmit}
+        >
           <h1 className="font-semibold text-2xl text-center mb-8">
             {!values.isMember ? "Create Your Account" : "Log into Blogspace"}
           </h1>
-          <div className="my-4">
-            {!values.isMember && (
+          <div className="">
+            <div className="my-4 w-full">
+              {!values.isMember && (
+                <FormRow
+                  type="text"
+                  name="name"
+                  value={values.name}
+                  handleChange={handleChange}
+                />
+              )}
               <FormRow
-                type="text"
-                name="name"
-                value={values.name}
+                type="email"
+                name="email"
+                value={values.email}
                 handleChange={handleChange}
               />
-            )}
-            <FormRow
-              type="email"
-              name="email"
-              value={values.email}
-              handleChange={handleChange}
-            />
-            <FormRow
-              type="password"
-              name="password"
-              value={values.password}
-              handleChange={handleChange}
-            />
-          </div>
-
-          {!values.isMember && (
-            <div>
-              <label htmlFor="bio">Bio</label>
-              <textarea
-                onChange={(e) => handleBio(e)}
-                placeholder="please provide a short bio about yourself."
-                name="bio"
-                id="bio"
-                cols="30"
-                rows="10"
-                minLength="10"
-              ></textarea>
-              <p className="text-xs text-stone-500 text-center py-6">
-                By creating an account, you agree to our{" "}
-                <span className="underline">Terms of Service</span> and have
-                read and understood the{" "}
-                <span className="underline">Privacy Policy</span>.
-              </p>
+              <FormRow
+                type="password"
+                name="password"
+                value={values.password}
+                handleChange={handleChange}
+              />
             </div>
-          )}
+            {!values.isMember && (
+              <div className=" w-full">
+                <label
+                  className="block uppercase text-xs text-stone-500 my-2"
+                  htmlFor="bio"
+                >
+                  Bio
+                </label>
+                <textarea
+                  className=" p-1 w-full block placeholder:capitalize placeholder-stone-500 text-sm transition-[background] focus:bg-[length:100%_1px] bg-left-bottom bg-gradient-to-r bg-[length:0%_1px] bg-no-repeat from-black to-black duration-300 focus:outline-none border-b border-gray py-2 my-1"
+                  onChange={(e) => handleBio(e)}
+                  placeholder="please provide a short bio about yourself."
+                  name="bio"
+                  id="bio"
+                  rows="7"
+                  minLength="10"
+                ></textarea>
+                <p className="text-xs text-stone-500 text-center py-6">
+                  By creating an account, you agree to our{" "}
+                  <span className="underline">Terms of Service</span> and have
+                  read and understood the{" "}
+                  <span className="underline">Privacy Policy</span>.
+                </p>
+              </div>
+            )}
+          </div>
           <button
             className={
               isLoading
