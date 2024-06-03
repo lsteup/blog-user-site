@@ -95,7 +95,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex w-full text-stone-500 sticky top-0  justify-between border-b border-stone-150 box-border items-center p-2 sm:p-4 gap-8 xl:text-lg ">
+    <nav className="flex w-full text-stone-500 sticky top-0  justify-between border-b border-stone-150 box-border items-center p-2 sm:p-4 gap-8 xl:text-lg  ">
       <Modal
         open={isModalVisible}
         onOk={handleOk}

@@ -72,10 +72,10 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <form
-        className="p-16 font-serif min-h-full grow"
+        className="pt-4 px-8 font-serif min-h-full    max-w-4xl mx-auto"
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="my-6 w-full"></div>
@@ -89,20 +89,22 @@ const CreatePost = () => {
         />
 
         <textarea
-          className="placeholder:text-stone-400 text-xl grow w-full text-black  focus:outline-none mb-8 "
+          className="placeholder:text-stone-400 text-xl h-[55vh] grow w-full text-black  focus:outline-none mb-8 "
           onChange={handleChange}
           name="content"
           id="content"
-          cols="30"
-          rows="10"
           placeholder="Share your story ..."
         ></textarea>
-        <input type="file" onChange={handleImgChange}></input>
+        <input
+          className="file:mr-4"
+          type="file"
+          onChange={handleImgChange}
+        ></input>
         <button
           className={
             loading
-              ? "p-2 border  w-full bg-stone-200 uppercase text-sm my-6 cursor-not-allowed"
-              : "p-2 border  w-full bg-stone-900 uppercase text-stone-50 my-6 hover:bg-stone-700"
+              ? "p-2 border  w-full bg-stone-200 uppercase text-sm my-6 cursor-not-allowed mb-8"
+              : "p-2 border  w-full bg-stone-900 uppercase text-stone-50 my-6 hover:bg-stone-700 mb-8"
           }
           disabled={loading}
           type="submit"
