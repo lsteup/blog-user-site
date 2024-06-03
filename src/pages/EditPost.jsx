@@ -25,7 +25,6 @@ const EditPost = () => {
       setValues({
         title: post.title,
         content: post.content,
-        image: post.image,
       });
       setIsLoading(false);
     } catch (error) {
@@ -126,7 +125,7 @@ const EditPost = () => {
             <div className="flex gap-4 items-center mb-4">
               <img
                 className="object-cover aspect-square max-w-40"
-                src={values.image}
+                src={post.image}
                 alt=""
               />
               <div>
