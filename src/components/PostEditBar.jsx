@@ -6,20 +6,20 @@ import { Modal, Button, Space } from "antd";
 
 const PostEditBar = ({ togglePublish, post }) => {
   return (
-    <div className="my-6 border-t border-b border-stone-400 flex gap-4 items-center p-2">
+    <div className="text-sm my-6 border-t border-b border-stone-400 flex gap-4 items-center py-1 px-4">
       <div className="grow flex gap-2 text-stone-500 items-center">
         <FaRegComment />
         <p>{post.comments.length}</p>
       </div>
 
-      <button className=" text-stone-500 p-2 rounded-md flex items-center gap-2 text-sm">
+      <button className=" text-stone-500 p-2 rounded-md flex items-center gap-2 ">
         <MdOutlineModeEdit size="1.2em" />
         <p>Edit</p>
       </button>
       <button
         onClick={togglePublish}
         className="text-stone-500 p-2 rounded-md 
-              text-sm "
+              "
       >
         {post.published ? (
           <div className="flex items-center gap-1 ">
@@ -46,7 +46,7 @@ const PostEditBar = ({ togglePublish, post }) => {
             ),
           });
         }}
-        className=" text-stone-500 p-2 rounded-md flex items-center gap-2 text-sm"
+        className=" text-stone-500 p-2 rounded-md flex items-center gap-2 "
       >
         <MdDeleteOutline className="text-red-500" size="1.2em" />
         <p>Delete</p>

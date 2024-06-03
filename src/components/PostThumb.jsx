@@ -40,13 +40,19 @@ const PostThumb = ({ post }) => {
       to={`/dashboard/${id}`}
       className="max-w-md sm:max-w-lg md:max-w-4xl md:max-h-48  box-border w-full font-semibold border border-stone-300 text-stone-500 text-xl  "
     >
-      <div className="flex flex-col  md:flex-row md:items-center min-h-16 md:gap-4">
-        {post.image && <img className="md:max-h-48" src={post.image} alt="" />}
+      <div className="flex flex-col  md:flex-row  min-h-16 md:gap-4">
+        {post.image && (
+          <img
+            className="md:max-h-48 aspect-square max-h-96 object-cover"
+            src={post.image}
+            alt=""
+          />
+        )}
         <div className="p-4">
-          <p className="mb-1 text-black font-medium text-base md:text-lg 2xl:text-xl">
+          <p className="mb-1 text-black font-medium text-base md:text-lg">
             {post.title}
           </p>
-          <div className="flex gap-2 items-center text-sm md:text-base 2xl:text-lg font-light">
+          <div className="flex gap-2 items-center text-sm md:text-base font-light">
             <p className="">{post.published ? "Published" : "Draft"}</p>
             <p>•</p>
             <p className=""> {date}</p>

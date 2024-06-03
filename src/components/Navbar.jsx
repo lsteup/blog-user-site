@@ -95,16 +95,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex w-full text-stone-500  justify-between border-b border-stone-150 box-border items-center p-2 sm:p-4 gap-8 xl:text-lg ">
+    <nav className="flex w-full text-stone-500 sticky top-0  justify-between border-b border-stone-150 box-border items-center p-2 sm:p-4 gap-8 xl:text-lg ">
       <Modal
-        title="Profile"
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
       >
-        <div className="flex gap-4">
-          <div className="">
+        <div className="flex gap-4 flex-col">
+          <h1 className="font-semibold text-2xl">Profile</h1>
+          <div className="flex flex-col gap-2 border justify-center items-center p-8">
             {(!isEditMode.image && (
               <div className="max-w-20">
                 <img src={user.image} alt="" />
@@ -115,50 +115,44 @@ const Navbar = () => {
                 type="file"
               ></input>
             )}
-            <button onClick={() => toggleEdit("image")}>change photo</button>
+            <button className="font-medium" onClick={() => toggleEdit("image")}>
+              EDIT
+            </button>
           </div>
 
           <div>
-            <div className="flex gap-4">
-              <div>
-                {(!isEditMode.name && user.name) || (
-                  <input
-                    placeholder={user.name}
-                    value={user.name}
-                    onChange={(e) => handleChange(e, "name")}
-                    type="text"
-                  ></input>
-                )}
-              </div>
-              <p onClick={() => toggleEdit("name")}>
-                {isEditMode.name ? "cancel" : "edit"}
-              </p>
+            <h2 className="my-2 text-stone-500 uppercase text-xs font-medium">
+              Profile Info
+            </h2>
+            <div className="flex justify-between text-base items-center">
+              <p className="font-medium ">Name</p>
+              <input
+                placeholder={user.name}
+                value={user.name}
+                onChange={(e) => handleChange(e, "name")}
+                type="text"
+                className="p-2 focus:border-b focus:border-0 focus:ouline-none focus:ring-0"
+              ></input>
             </div>
-            <div>
-              <div className="flex gap-4">
-                <div>
-                  {(!isEditMode.bio && user.bio) || (
-                    <input
-                      placeholder={user.bio}
-                      value={user.bio}
-                      onChange={(e) => handleChange(e, "bio")}
-                      type="text"
-                    ></input>
-                  )}
-                </div>
-                <p onClick={() => toggleEdit("bio")}>
-                  {isEditMode.bio ? "cancel" : "edit"}
-                </p>
-              </div>
+            <div className="my-4 ">
+              <p className="font-medium text-base mb-2 ">Bio</p>
+              <textarea
+                className="w-full h-[11rem] text-sm "
+                value={user.bio}
+                placeholder={user.bio}
+                onChange={(e) => handleChange(e, "bio")}
+              ></textarea>
+
               <button
                 type="submit"
                 onClick={onFinish}
-                className="block border border-black"
+                className="block border border-black my-2 w-full p-2 text-base"
               >
-                submit
+                Edit
               </button>
               <button
                 type="button"
+                className="block border  border-black w-full p-2 text-base"
                 onClick={() => {
                   dispatch(logoutUser());
                 }}

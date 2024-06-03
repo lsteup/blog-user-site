@@ -29,8 +29,8 @@ const Sidebar = () => {
 
   if (isLoading) return <div>Loading ...</div>;
   return (
-    <div className="p-16 px-8 xl:px-12 min-w-60 border-r hidden lg:block">
-      <h1 className="text-2xl  capitalize text-stone-500 2xl:text-4xl">
+    <div className="p-16 px-8 xl:px-12 min-w-60 border-r hidden lg:block max-w-sm">
+      <h1 className="text-2xl  capitalize text-stone-500 2xl:text-3xl">
         recent activity
       </h1>
       <div className="py-8 divide-y flex flex-col gap-4 divide-stone-200">
