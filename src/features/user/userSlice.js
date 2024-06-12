@@ -45,6 +45,7 @@ const userSlice = createSlice({
   reducers: {
     logoutUser: (state) => {
       state.user = null;
+      state.posts = null;
       removeUserFromLocalStorage();
       removeFilterFromLocalStorage();
     },

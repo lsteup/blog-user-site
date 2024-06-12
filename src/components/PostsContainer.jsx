@@ -7,12 +7,16 @@ import {
   getFilterFromLocalStorage,
   addFilterToLocalStorage,
 } from "../utils/localStorage";
+import userSlice from "../features/user/userSlice";
 
 const PostsContainer = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.user.token);
+  const user = useSelector((store) => store.user.user);
   const { posts: allPosts, isLoading } = useSelector((store) => store.posts);
+
   const [posts, setPosts] = useState([]);
+  console.log(allPosts, "posts:", posts);
   const [filter, setFilter] = useState(getFilterFromLocalStorage);
   //const [query, setQuery] = useState("");
 
@@ -63,13 +67,17 @@ const PostsContainer = () => {
 
   useEffect(() => {
     dispatch(fetchPosts(token));
-  }, [dispatch]);
+    console.log(user);
+    console.log("use effect triggered");
+  }, [dispatch, token, user]);
 
   useEffect(() => {
     if (allPosts && allPosts.length) {
       setPosts(applyFilter(filter, allPosts));
+    } else {
+      setPosts([]);
     }
-  }, [allPosts, filter]);
+  }, [allPosts, filter, user, token]);
 
   if (isLoading) return <div>Loading...</div>;
   else {
