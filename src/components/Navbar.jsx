@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const initialState = { name: false, bio: false, photo: false };
   const [isEditMode, setIsEditMode] = useState(initialState);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({ name: user.name, bio: user.bio });
   const token = useSelector((store) => store.user.user.token);
 
   const showModal = () => {
@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const handleCancel = () => {
     setIsEditMode(initialState);
-    setValues({});
+    setValues({ name: user.name, bio: user.bio });
     setIsModalVisible(false);
   };
 
@@ -58,7 +58,8 @@ const Navbar = () => {
         });
         path = response.data.image.src;
       } catch (error) {
-        toast.error("something went wrong. Try again in a few moments.");
+        toast.error("Please link a valid document type.");
+        return;
       }
     }
     const body = values;
@@ -68,6 +69,7 @@ const Navbar = () => {
     }
 
     if (Object.keys(body).length) {
+      console.log(body);
       try {
         const resp = await customFetch.patch(
           "/users/profile/edit",
@@ -85,7 +87,7 @@ const Navbar = () => {
         dispatch(updateUser(resp.data.user));
         toast.success("profile updated");
       } catch (error) {
-        toast.error("something went wrong");
+        toast.error(error.response.data.error);
       }
     }
 
@@ -101,13 +103,18 @@ const Navbar = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+        className=""
       >
-        <div className="flex gap-4 flex-col">
+        <div className="flex gap-4 flex-col ">
           <h1 className="font-semibold text-2xl">Profile</h1>
           <div className="flex flex-col gap-2 border justify-center items-center p-8">
             {(!isEditMode.image && (
               <div className="max-w-20">
-                <img src={user.image} alt="" />
+                <img
+                  className="rounded-full overflow-hidden"
+                  src={user.image}
+                  alt=""
+                />
               </div>
             )) || (
               <input
@@ -137,7 +144,7 @@ const Navbar = () => {
             <div className="my-4 ">
               <p className="font-medium text-base mb-2 ">Bio</p>
               <textarea
-                className="w-full h-[11rem] text-sm "
+                className="w-full max-h-[11rem] text-sm "
                 value={values.bio}
                 placeholder={user.bio}
                 onChange={(e) => handleChange(e, "bio")}
@@ -146,13 +153,22 @@ const Navbar = () => {
               <button
                 type="submit"
                 onClick={onFinish}
-                className="block border border-black my-2 w-full p-2 text-base"
+                className="block  bg-green-600 text-white rounded my-2 w-full p-2 text-sm"
               >
-                Edit
+                Save Changes
               </button>
+
+              <button
+                type="submit"
+                onClick={handleCancel}
+                className="block my-2 border rounded border-black bg-stone-200 w-full p-2 text-sm"
+              >
+                Cancel
+              </button>
+
               <button
                 type="button"
-                className="block border  border-black w-full p-2 text-base"
+                className="block border rounded  border-black w-full p-2 text-sm"
                 onClick={() => {
                   dispatch(logoutUser());
                 }}
@@ -169,9 +185,12 @@ const Navbar = () => {
         <img className="max-h-10 2xl:max-h-16  ml-2" src={logo} alt="" />
       </Link>
 
-      <Link className="hidden md:block md:border-s-black grow">
-        Visit Website
-      </Link>
+      <a
+        href="https://blog-site-three-topaz.vercel.app/"
+        className="hidden md:block md:border-s-black grow"
+      >
+        Visit The Blog
+      </a>
 
       <Link
         to="/create"
@@ -183,7 +202,7 @@ const Navbar = () => {
 
       <img
         onClick={showModal}
-        className="max-w-8 sm:max-w-10 2xl:max-w-12 mr-4 cursor-pointer"
+        className="rounded-full overflow-hidden max-w-8 sm:max-w-10 2xl:max-w-12 mr-4 cursor-pointer"
         src={img}
         alt=""
       />

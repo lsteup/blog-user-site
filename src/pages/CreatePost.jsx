@@ -34,12 +34,19 @@ const CreatePost = () => {
       if (values.image) {
         const formData = new FormData();
         formData.append("image", values.image);
-        const response = await customFetch.post("/posts/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        path = response.data.image.src;
+
+        try {
+          const response = await customFetch.post("/posts/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          path = response.data.image.src;
+        } catch (error) {
+          toast.error("please add a file that is a photo");
+          setIsLoading(false);
+          return;
+        }
       }
 
       const resp = await customFetch.post(
@@ -61,7 +68,7 @@ const CreatePost = () => {
         navigate("/dashboard");
       }, 2000);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.msg);
     }
     setIsLoading(false);
   };

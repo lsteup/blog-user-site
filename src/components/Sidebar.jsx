@@ -16,7 +16,6 @@ const Sidebar = () => {
       const result = await customFetch.get(`/users/${userId}`);
       const activity = result.data.data.activity;
       setActivity(activity.slice(0, 10));
-      console.log(activity);
       setIsLoading(false);
     } catch (err) {
       console.log(err);

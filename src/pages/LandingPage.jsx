@@ -1,6 +1,8 @@
 import { Button, Logo } from "../components";
 import { Link } from "react-router-dom";
 import bird from "/bird.png";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 const LandingPage = () => {
   return (
@@ -8,9 +10,16 @@ const LandingPage = () => {
       <nav className="bg-stone-50 mb-8 flex w-full text-stone-500 sticky z-10 top-0  justify-between border-b border-stone-150 box-border items-center p-4 sm:p-4 sm:px-6 gap-4 xl:text-lg">
         <div className="flex items-center gap-2">
           <Logo />
-          <p className="text-lg text-black font-medium font-sans">BlogSpace</p>
+          <p className="hidden text-lg text-black font-medium font-sans">
+            BlogSpace
+          </p>
         </div>
-        <Link className="grow text-right">Go To Website</Link>
+        <a
+          href="https://blog-site-three-topaz.vercel.app/"
+          className="grow text-right"
+        >
+          Visit The Blog
+        </a>
 
         <Button link="register" text="Register" />
       </nav>
@@ -30,8 +39,14 @@ const LandingPage = () => {
           <Button link="register" text="Get started" />
         </div>
       </div>
-      <div className="border-t border-black text-center py-4">
-        copyright lsteup
+      <div className="flex p-4 bg-stone-50 items-center text-lg justify-center gap-2 mt-6 ">
+        <a href="">© lsteup</a>
+        <a href="https://github.com/lsteup">
+          <FaGithub className="hover:scale-110" size="1.45em" />
+        </a>
+        <a href="https://www.linkedin.com/in/louisa-steup-6484aa2a8/">
+          <FaLinkedin className="hover:scale-110" size="1.45em" />
+        </a>
       </div>
     </main>
   );

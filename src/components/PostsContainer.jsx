@@ -16,7 +16,6 @@ const PostsContainer = () => {
   const { posts: allPosts, isLoading } = useSelector((store) => store.posts);
 
   const [posts, setPosts] = useState([]);
-  console.log(allPosts, "posts:", posts);
   const [filter, setFilter] = useState(getFilterFromLocalStorage);
   //const [query, setQuery] = useState("");
 
@@ -67,8 +66,6 @@ const PostsContainer = () => {
 
   useEffect(() => {
     dispatch(fetchPosts(token));
-    console.log(user);
-    console.log("use effect triggered");
   }, [dispatch, token, user]);
 
   useEffect(() => {
