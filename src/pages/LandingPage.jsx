@@ -3,26 +3,12 @@ import { Link } from "react-router-dom";
 import bird from "/bird.png";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import LandingNavBar from "../components/LandingNavBar";
 
 const LandingPage = () => {
   return (
     <main className="bg-stone-50 min-h-screen flex flex-col space-between">
-      <nav className="bg-stone-50 mb-8 flex w-full text-stone-500 sticky z-10 top-0  justify-between border-b border-stone-150 box-border items-center p-4 sm:p-4 sm:px-6 gap-4 xl:text-lg">
-        <div className="flex items-center gap-2">
-          <Logo />
-          <p className="hidden text-lg text-black font-medium font-sans">
-            BlogSpace
-          </p>
-        </div>
-        <a
-          href="https://blog-site-three-topaz.vercel.app/"
-          className="grow text-right"
-        >
-          Visit The Blog
-        </a>
-
-        <Button link="register" text="Register" />
-      </nav>
+      <LandingNavBar />
       <div className="md:px-12 px-8 my-8 font-serif flex flex-col md:flex-row md:flex-wrap lg:items-center lg:flex-nowrap lg:flex-row-reverse justify-center grow  gap-8">
         <img
           className="max-w-xs aspect-square object-contain top-0 self-start"

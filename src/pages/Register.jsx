@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import LandingNavBar from "../components/LandingNavBar";
 
 const initialState = {
   name: "",
@@ -60,15 +61,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-stone-50">
-      <nav className="bg-stone-50 mb-8 flex w-full  text-stone-500 sticky z-10 top-0  justify-between border-b border-stone-150 box-border items-center p-4 sm:p-4 sm:px-6 gap-4 xl:text-lg">
-        <div className="flex items-center gap-2">
-          <Logo />
-          <p className="text-lg text-black font-medium font-sans">BlogSpace</p>
-        </div>
-        <Link className="grow text-right">Go To Website</Link>
-
-        <Button link="register" text="Register" />
-      </nav>
+      <LandingNavBar />
       <div className="flex grow justify-center items-center w-full ">
         <form
           className="w-80 pb-8 mx-auto border-black"

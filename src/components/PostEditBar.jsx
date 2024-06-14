@@ -40,7 +40,7 @@ const PostEditBar = ({ togglePublish, post }) => {
         onClick={() => {
           Modal.confirm({
             title: "Are you sure you want to delete this post?",
-            content: "This action cannot be undone",
+            content: "This action cannot be undone.",
             footer: (_, { OkBtn, CancelBtn }) => (
               <>
                 <Button>Set as Private</Button>
