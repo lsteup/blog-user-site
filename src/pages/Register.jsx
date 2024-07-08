@@ -48,6 +48,11 @@ const Register = () => {
     }
   };
 
+  const demoApp = (e) => {
+    const [email, password] = ["ivy@email.com", "secret"];
+    dispatch(loginUser({ email, password }));
+  };
+
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
@@ -130,12 +135,24 @@ const Register = () => {
             className={
               isLoading
                 ? "p-2 border  w-full bg-stone-200 uppercase text-sm my-6 cursor-not-allowed"
-                : "p-2 border  w-full bg-stone-900 uppercase text-stone-50 my-6 hover:bg-stone-700"
+                : "p-2 border  w-full bg-stone-900 uppercase text-stone-50 my-6 mb-2 hover:bg-stone-700"
             }
             disabled={isLoading}
             type="submit"
           >
             {isLoading ? "Loading..." : "Submit"}
+          </button>
+          <button
+            className={
+              isLoading
+                ? "p-2 border  w-full bg-stone-200 uppercase text-sm my-6 cursor-not-allowed"
+                : "p-2 border  w-full bg-stone-700 uppercase text-stone-50 my-6 mt-2 hover:bg-stone-700"
+            }
+            disabled={isLoading}
+            type="button"
+            onClick={demoApp}
+          >
+            {isLoading ? "Loading..." : "Demo App"}
           </button>
           <p className="text-sm font-light text-center tracking-wider">
             {values.isMember ? "Not a member yet? " : "Already a member? "}
