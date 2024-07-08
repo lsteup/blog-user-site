@@ -22,7 +22,9 @@ export const registerUser = createAsyncThunk(
       const resp = await customFetch.post("/auth/register", user);
       return resp.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+      console.log(error);
+      toast.error(error.response.data.msg);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -70,8 +72,8 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.isLoading = false;
-        console.log(error);
-        toast.error("error");
+        state.error = payload;
+        toast.error(error.response.data.msg);
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
@@ -85,7 +87,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
-        toast.error("error");
+        toast.error("Invalid Credentials");
       });
   },
 });

@@ -13,6 +13,7 @@ const initialState = {
   password: "",
   isMember: true,
   bio: "",
+  code: "",
 };
 
 const Register = () => {
@@ -34,7 +35,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, isMember, bio } = values;
+    const { name, email, password, isMember, bio, code } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("Please Fill out all Fields");
       return;
@@ -43,7 +44,7 @@ const Register = () => {
       dispatch(loginUser({ email, password }));
       return;
     } else {
-      dispatch(registerUser({ name, email, password, bio }));
+      dispatch(registerUser({ name, email, password, bio, code }));
     }
   };
 
@@ -95,6 +96,12 @@ const Register = () => {
             </div>
             {!values.isMember && (
               <div className=" w-full">
+                <FormRow
+                  type="password"
+                  name="code"
+                  value={values.code}
+                  handleChange={handleChange}
+                />
                 <label
                   className="block uppercase text-xs text-stone-500 my-2"
                   htmlFor="bio"
