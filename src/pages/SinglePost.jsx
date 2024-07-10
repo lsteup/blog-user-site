@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { MdDeleteOutline } from "react-icons/md";
 import { Navbar, Sidebar } from "../components";
 import { GoReply } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 import PostEditBar from "../components/PostEditBar";
 import { Link } from "react-router-dom";
@@ -17,6 +18,7 @@ const SinglePost = () => {
   const [loading, setIsLoading] = useState(true);
   const postId = useLocation().pathname.split("/")[2];
   const token = useSelector((store) => store.user.user.token);
+  const navigate = useNavigate();
 
   const words = post?.content.split("").length;
   const time = `${Math.ceil(words / 200)} min. read`;
@@ -56,7 +58,25 @@ const SinglePost = () => {
       setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
+  };
+
+  const deletePost = async () => {
+    setIsLoading(true);
+    try {
+      const resp = await customFetch.delete(`/posts/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      toast.success("Post deleted");
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 500);
   };
 
   useEffect(() => {
@@ -73,7 +93,7 @@ const SinglePost = () => {
           <Sidebar />
           <div className="w-full px-4 max-w-3xl 2xl:max-w-4xl mx-auto sm:px-8 mt-4 py-6 text-stone-900">
             <Link to="/dashboard">
-              <button className="p-2 border border-black rounded">
+              <button className="p-2 my-6 border border-black rounded">
                 Back to Posts
               </button>
             </Link>
@@ -91,7 +111,11 @@ const SinglePost = () => {
                 </div>
               </div>
             </div>
-            <PostEditBar togglePublish={togglePublish} post={post} />
+            <PostEditBar
+              togglePublish={togglePublish}
+              deletePost={deletePost}
+              post={post}
+            />
             <img
               className="mt-12 2xl:my-8 2xl:mt-16 2xl:max-w-3xl max-h-[80vh] max-w-2xl mx-auto"
               src={post.image}

@@ -5,7 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { Modal, Button, Space } from "antd";
 import { Link } from "react-router-dom";
 
-const PostEditBar = ({ togglePublish, post }) => {
+const PostEditBar = ({ togglePublish, post, deletePost }) => {
   return (
     <div className="text-sm my-6 border-t border-b border-stone-400 flex gap-4 items-center py-1 px-4">
       <div className="grow flex gap-2 text-stone-500 items-center">
@@ -41,9 +41,9 @@ const PostEditBar = ({ togglePublish, post }) => {
           Modal.confirm({
             title: "Are you sure you want to delete this post?",
             content: "This action cannot be undone.",
+            onOk: deletePost,
             footer: (_, { OkBtn, CancelBtn }) => (
               <>
-                <Button>Set as Private</Button>
                 <CancelBtn />
                 <OkBtn />
               </>
